@@ -57,16 +57,25 @@ Known limits, so a failure is diagnosed rather than re-investigated:
 - **claude.ai chat has no git.** It cannot clone anything. On that surface this
   skill cannot work, and the rules have to be pasted by hand. Say that rather
   than improvising.
-- **A bare Cowork session has no credential for a private repo by default.**
-  No `gh` CLI, no SSH key, and `GITHUB_TOKEN` (if set) is a placeholder string,
-  not a real token. The clone in step 1 will fail with `fatal: could not read
-  Username for 'https://github.com': terminal prompts disabled` until a human
-  supplies a credential — verified 2026-08-29 by cloning the *public*
-  `claude-bootstrap` repo with the identical command and no auth needed in the
-  same container, isolating the failure to "no credential," not a broken git
-  setup. **Say this plainly rather than retrying the same clone command.** If
-  Garrett is in the chat, ask him to paste a GitHub personal access token; splice
-  it into the clone URL for that one command
+- **A bare Cowork session has no credential for a private repo by default, and
+  the GitHub connector will not save you — it is separately broken.** No
+  `gh` CLI, no SSH key, `GITHUB_TOKEN` (if set) is a placeholder string not a
+  real token, and even if Garrett has GitHub Integration showing "Connected" in
+  Settings → Connectors, it does not appear in Cowork's own per-chat "Add
+  connector" list, unlike Gmail/Calendar/Drive/Spotify — a known, long-open
+  Anthropic bug (GitHub's MCP server doesn't support the OAuth flow Cowork's
+  connector auto-auth needs; tracked in
+  [`anthropics/claude-code#59854`](https://github.com/anthropics/claude-code/issues/59854)
+  and five other issues, verified 2026-08-29). **Do not suggest "turn on the
+  GitHub connector" as the fix — it will not show up to turn on.** The clone
+  in step 1 will instead fail with `fatal: could not read Username for
+  'https://github.com': terminal prompts disabled` until a human supplies a
+  credential — verified 2026-08-29 by cloning the *public* `claude-bootstrap`
+  repo with the identical command and no auth needed in the same container,
+  isolating the failure to "no credential," not a broken git setup. **Say
+  this plainly rather than retrying the same clone command or the connector.**
+  If Garrett is in the chat, ask him to paste a GitHub personal access token;
+  splice it into the clone URL for that one command
   (`https://x-access-token:<PAT>@github.com/...`) rather than writing it to git
   config, so it is not left sitting in a file.
 - **Push from Cowork is walled off by a known, open Anthropic bug — not a
