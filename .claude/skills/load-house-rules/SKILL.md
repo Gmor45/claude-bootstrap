@@ -90,43 +90,29 @@ replies at any point, and the Companion is what survives that.
 **In Cowork it probably will. There is a real fallback now — use it, then say
 which one you are running from.**
 
-### The Cowork fallback: read the rules from Google Drive
+### The Cowork fallback: the credential Garrett already keeps
 
-Added 2026-09-01, because "say so plainly and stop" was the whole answer for
-weeks and it left Cowork sessions running with no rules at all. Drive is the one
-surface a bare Cowork session reaches with **no credential** — verified: a Cowork
-session built the `Gartera Handoffs` folder itself on 2026-08-31.
+**Confirmed by Garrett 2026-09-01: his Cowork sessions clone `claude-audit`
+fine**, because he keeps a fine-grained PAT in Cowork's custom instructions so he
+does not have to paste one every chat. So the clone in step 1 is the live route
+on that surface too, and a Cowork session that ends up ruleless has usually
+skipped this skill rather than been blocked by it.
 
-```
-Gartera Handoffs / Cowork Instructions / house-rules-FULL.md
-```
+If the clone really is refused for want of a credential, ask him for that token
+and splice it into the URL for that one command
+(`https://x-access-token:<PAT>@github.com/...`) rather than writing it into git
+config, so it is not left sitting in a file.
 
-That is a **generated, stamped mirror** of the same `SKILL.md` step 2 names. Read
-it whole and follow it exactly as if the clone had worked.
+**Do not reach for the GitHub connector, and do not retry the same clone.** The
+connector is separately and permanently broken here (rule 9a, six open Anthropic
+issues) and will not even appear in Cowork's connector list to be turned on.
 
-**If that file is not there, it has not been built yet — say so, and do not
-substitute a summary.** It is produced by
-`claude-audit/scripts/mirror_cowork_rules.py render` and uploaded by hand,
-because Drive's only write path is inline content passed through a model's own
-output, and a hand-copied 52 KB file cannot honestly carry the source hash that
-makes the mirror trustworthy. The intended builder is a session that can verify
-its upload by downloading it back and comparing hashes. Until one has, the
-folder holds only `00-READ-FIRST-cowork.md`.
-
-Three things about it, all load-bearing:
-
-- **Use `download_file_content`, not `read_file_content`.** The latter
-  markdown-escapes a `text/plain` file (`session_01…` comes back as
-  `session\_01…`), which is silent and corrupting. Measured 2026-08-31.
-- **Check its stamp.** The mirror's header carries the source SHA-256 and the
-  date it was taken. If you can also reach the repo, compare — **the repo wins
-  and the mirror is stale.** Say so out loud rather than following it.
-- **Tell Garrett you are running from the mirror**, in one line. A copy nobody
-  knows is a copy is how `PASTE-ME.md` drifted 73 lines, then 81 lines, in two
-  separate weeks.
-
-Also in that same Drive folder: `00-READ-FIRST-cowork.md`, the Cowork equivalent
-of a repo's `CLAUDE.md` — read it too, it is short.
+There is also `Gartera Handoffs / Cowork Instructions / 00-READ-FIRST-cowork.md`
+in Drive — Cowork's equivalent of a repo's `CLAUDE.md`, reachable with no
+credential at all. It is short, and it is a **pointer, not a copy of the rules**.
+Read it in addition to the rules, never instead of them. Use
+`download_file_content`, not `read_file_content`: the latter markdown-escapes a
+`text/plain` file silently (measured 2026-08-31).
 
 ### If neither route works
 
