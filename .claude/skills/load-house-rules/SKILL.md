@@ -104,6 +104,15 @@ Gartera Handoffs / Cowork Instructions / house-rules-FULL.md
 That is a **generated, stamped mirror** of the same `SKILL.md` step 2 names. Read
 it whole and follow it exactly as if the clone had worked.
 
+**If that file is not there, it has not been built yet — say so, and do not
+substitute a summary.** It is produced by
+`claude-audit/scripts/mirror_cowork_rules.py render` and uploaded by hand,
+because Drive's only write path is inline content passed through a model's own
+output, and a hand-copied 52 KB file cannot honestly carry the source hash that
+makes the mirror trustworthy. The intended builder is a session that can verify
+its upload by downloading it back and comparing hashes. Until one has, the
+folder holds only `00-READ-FIRST-cowork.md`.
+
 Three things about it, all load-bearing:
 
 - **Use `download_file_content`, not `read_file_content`.** The latter
