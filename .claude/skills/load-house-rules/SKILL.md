@@ -12,7 +12,37 @@ surface without anyone pasting anything.
 
 ## Do this first, before answering
 
-1. **Clone or pull the private repo** into this session's workspace:
+### 0. Publish the Companion — BEFORE the clone, not after
+
+Garrett is a visual processor and does not scroll back. A session with no
+Companion has no view he can glance at, and he said so on 2026-09-01: *"I don't
+have my visual aid firing reliably every chat."*
+
+**It sits at step 0 for a measured reason.** It used to be rule 14 of 21 inside a
+50 KB file, which is a position that loses to whatever else the turn is doing.
+The rule was correct the whole time and never fired — the fix is where it sits
+and what it costs, not more words in it.
+
+If you can reach `claude-audit` (step 1 below), it is two commands:
+
+```
+python3 claude-audit/scripts/companion.py new --out companion.html
+python3 claude-audit/scripts/companion.py check companion.html   # never publish a FAIL
+```
+
+If you cannot reach the repo, hand-build it — a page carrying, in this order:
+**turn count · model and thinking tier · session state · one verdict LINE**
+(`DOWNSHIFT` / `NEW CHAT` / `WAITING ON YOU` / `ON TRACK` — an instruction, not a
+summary), then cards for what is happening now, what is settled, what is waiting
+on him numbered so he can just do them, what will surprise him, and the next
+move. Republish it whenever something on it becomes false — not every turn.
+
+Do this on your first substantive turn. Not at the end; he may stop reading
+replies at any point, and the Companion is what survives that.
+
+### 1. Get the rules
+
+**Clone or pull the private repo** into this session's workspace:
 
    ```
    git clone --depth 1 https://github.com/Gmor45/claude-audit.git
@@ -56,6 +86,40 @@ surface without anyone pasting anything.
    | `.claude/skills/session-digest/SKILL.md` | The session/model audit. |
 
 ## If the clone fails
+
+**In Cowork it probably will. There is a real fallback now — use it, then say
+which one you are running from.**
+
+### The Cowork fallback: read the rules from Google Drive
+
+Added 2026-09-01, because "say so plainly and stop" was the whole answer for
+weeks and it left Cowork sessions running with no rules at all. Drive is the one
+surface a bare Cowork session reaches with **no credential** — verified: a Cowork
+session built the `Gartera Handoffs` folder itself on 2026-08-31.
+
+```
+Gartera Handoffs / Cowork Instructions / house-rules-FULL.md
+```
+
+That is a **generated, stamped mirror** of the same `SKILL.md` step 2 names. Read
+it whole and follow it exactly as if the clone had worked.
+
+Three things about it, all load-bearing:
+
+- **Use `download_file_content`, not `read_file_content`.** The latter
+  markdown-escapes a `text/plain` file (`session_01…` comes back as
+  `session\_01…`), which is silent and corrupting. Measured 2026-08-31.
+- **Check its stamp.** The mirror's header carries the source SHA-256 and the
+  date it was taken. If you can also reach the repo, compare — **the repo wins
+  and the mirror is stale.** Say so out loud rather than following it.
+- **Tell Garrett you are running from the mirror**, in one line. A copy nobody
+  knows is a copy is how `PASTE-ME.md` drifted 73 lines, then 81 lines, in two
+  separate weeks.
+
+Also in that same Drive folder: `00-READ-FIRST-cowork.md`, the Cowork equivalent
+of a repo's `CLAUDE.md` — read it too, it is short.
+
+### If neither route works
 
 **Say so plainly and immediately. Do not proceed as if there were no rules.**
 
